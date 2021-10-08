@@ -26,6 +26,14 @@ class Pronoun(Enum):
     HEN = auto()
 
 
+# TODO: rename
+class Present(Enum):
+    MALE_SINGULAR = auto()
+    MALE_PLURAL = auto()
+    FEMALE_SINGULAR = auto()
+    FEMALE_PLURAL = auto()
+
+
 class Gizra(Enum):
     NONE = auto()
     KFULIM = auto()
@@ -391,6 +399,57 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: Gizra) -> s
             return base + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
         return re.sub(r"[Aae]!", "á" if base[-4] in GRONIYOT else "3", base) + PRONOUN_PAST_SUFFIX[pronoun]
 
+def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> str:
+    if param == Present.MALE_SINGULAR:
+        return base
+    if binyan in (Binyan.HITPAEL, Binyan.PIEL):
+        if param == Present.FEMALE_SINGULAR:
+            if re.search("e!.Á?$", base):
+                return re.sub(r"e!(.)Á?$", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
+            if base.endswith("E!H"):
+                # alternatively: "a!H" -> "eYt"
+                return base.replace("E!H", "a!H")
+        if param == Present.MALE_PLURAL:
+            if re.search("e!.Á?$", base):
+                return re.sub(r"(.)e!(.)Á?$", lambda m: m[1] + ("á" if m[1] in GRONIYOT else "3") + m[2], base) + "i!m"
+            if base.endswith("E!H"):
+                return base.replace("E!H", "i!m")
+        if param == Present.FEMALE_PLURAL:
+            if re.search("e!.Á?$", base):
+                return re.sub(r"(.)e!(.)Á?$", lambda m: m[1] + ("á" if m[1] in GRONIYOT else "3") + m[2], base) + "W!t"
+            if base.endswith("E!H"):
+                return base.replace("E!H", "W!t")
+    if binyan in (Binyan.PUAL, Binyan.HUFAL, Binyan.NIFAL):
+        if param == Present.FEMALE_SINGULAR:
+            if re.search("a!.$", base):
+                return re.sub(r"a!(.)", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
+            if base.endswith("E!H"):
+                # alternatively: "a!H" -> "eYt"
+                return base.replace("E!H", "a!H")
+        if param == Present.MALE_PLURAL:
+            if re.search("a!.$", base):
+                return base.replace("a!", "a") + "i!m"
+            if base.endswith("E!H"):
+                return base.replace("E!H", "i!m")
+        if param == Present.FEMALE_PLURAL:
+            if re.search("a!.$", base):
+                return base.replace("a!", "a") + "W!t"
+            if base.endswith("E!H"):
+                return base.replace("E!H", "W!t")
+    if binyan == Binyan.HIFIL:
+        if re.search("[" + "".join(CONSONANTS) + "]Á?$", base):
+            return base.replace("!", "").replace("Á", "") + {
+                Present.FEMALE_SINGULAR: "a!H",
+                Present.MALE_PLURAL: "i!m",
+                Present.FEMALE_PLURAL: "W!t"
+            }[param]
+        if base.endswith("E!H"):
+            return base[:-3] + {
+                Present.FEMALE_SINGULAR: "a!H",
+                Present.MALE_PLURAL: "i!m",
+                Present.FEMALE_PLURAL: "W!t"
+            }[param]
+
 def past2future(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
     if binyan == Binyan.HITPAEL:
         return "y" + base[1:].replace("a!H", "E!H")
@@ -524,7 +583,6 @@ def past2present(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
         if re.fullmatch(r".a.e!Q", base):
             return base
         return base
-    
 
 def past2binyan(verb: str, gizra: Gizra) -> Optional[Binyan]:
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
@@ -551,13 +609,18 @@ def past2binyan(verb: str, gizra: Gizra) -> Optional[Binyan]:
 
 def __inflect(base: str, binyan: Binyan, gizra: Gizra) -> Optional[dict[str, str]]:
     res = {}
-    for pronoun in Pronoun:
-        res["past_" + pronoun.name] = fixup(inflect_past(base, binyan, pronoun, gizra))
     future_base = past2future(base, binyan, gizra)
     if future_base is None:
         return None
+    present_base = past2present(base, binyan, gizra)
+    if present_base is None:
+        return None
+    for pronoun in Pronoun:
+        res["past_" + pronoun.name] = fixup(inflect_past(base, binyan, pronoun, gizra))
     for pronoun in Pronoun:
         res["future_" + pronoun.name] = fixup(inflect_future(future_base, binyan, pronoun, gizra))
+    for param in Present:
+        res["present_" + param.name] = fixup(inflect_present(present_base, binyan, param, gizra) or "")
     return res
 
 def inflect(base: str, binyan: Binyan, root: str) -> Optional[dict[str, str]]:
