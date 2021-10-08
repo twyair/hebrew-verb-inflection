@@ -27,6 +27,7 @@ class Pronoun(Enum):
 
 
 class Gizra(Enum):
+    NONE = auto()
     KFULIM = auto()
     PE_YOD = auto()  # used only for PAAL
     AYIN_WAW = auto()  # used only for PAAL
@@ -34,23 +35,18 @@ class Gizra(Enum):
     PAAL_PARADIGM_2 = auto()
 
     @staticmethod
-    def new(verb: str, binyan: Binyan, root: str) -> set[Gizra]:
-        res = set()
-        if binyan == Binyan.PAAL and verb.startswith("y"):
-            res.add(Gizra.PE_YOD)
-        if len(root) == 3 and root[1] == root[2]:
-            res.add(Gizra.KFULIM)
-        if binyan == Binyan.PAAL and len(root) == 3 and root[1] == "w":
-            res.add(Gizra.AYIN_WAW)
+    def new(verb: str, binyan: Binyan, root: str) -> Gizra:
         if verb in PAAL_PARADIGM_1:
-            res.add(Gizra.PAAL_PARADIGM_1)
+            return Gizra.PAAL_PARADIGM_1
         if verb in PAAL_PARADIGM_2:
-            res.add(Gizra.PAAL_PARADIGM_2)
-        return res
-
-    @staticmethod
-    def from_str(s: str) -> set[Gizra]:
-        return {Gizra[x] for x in s.split("+")}
+            return Gizra.PAAL_PARADIGM_2
+        if binyan == Binyan.PAAL and verb.startswith("y"):
+            return Gizra.PE_YOD
+        if len(root) == 3 and root[1] == root[2]:
+            return Gizra.KFULIM
+        if binyan == Binyan.PAAL and len(root) == 3 and root[1] == "w":
+            return Gizra.AYIN_WAW
+        return Gizra.NONE
 
 CONSONANTS = tuple("QbvgGdDhwzj7ykxlmnsRpfZqrcStT")
 GRONIYOT = tuple("hjQR")
@@ -122,7 +118,7 @@ def add_dagesh_forte(c: str) -> str:
 def fixup(word: str) -> str:
     return re.sub(r"(.)\1", r"\1%\1", word).replace("%", "3")
 
-def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra]) -> str:
+def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: Gizra) -> str:
     if binyan in (Binyan.HITPAEL, Binyan.PIEL, Binyan.PUAL):
         assert base.startswith("yI") and binyan == Binyan.HITPAEL or base.startswith(
             "y3") and binyan != Binyan.HITPAEL
@@ -169,7 +165,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
         base_at = base.replace("Á", "")
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Gizra.KFULIM in gizra and base_at[-1] not in "jhQRr" and not re.search(r"(.).!\1$", re.sub("[fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base_at)):
+        elif Gizra.KFULIM == gizra and base_at[-1] not in "jhQRr" and not re.search(r"(.).!\1$", re.sub("[fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base_at)):
             base_at = base_at[:-1] + "_" + add_dagesh_lene(base_at[-1])
         else:
             assert base_at.endswith(CONSONANTS)
@@ -206,7 +202,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
         stressed_suffix_at = True
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Gizra.KFULIM in gizra and not re.search(r"(.).!\1", base_at):
+        elif Gizra.KFULIM == gizra and not re.search(r"(.).!\1", base_at):
             if base_at[-1] in "r":
                 base_at = base_at.replace("A!", "a!")
             else:
@@ -239,7 +235,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
         stressed_suffix_at = True
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Gizra.KFULIM in gizra and len(base_at) == 6 and base_at[-4] == "j":
+        elif Gizra.KFULIM == gizra and len(base_at) == 6 and base_at[-4] == "j":
             base_at = base_at[:-1] + ("" if base_at[-1] in GRONIYOT else "_") + add_dagesh_lene(base_at[-1])
             stressed_suffix_at = False
         else:
@@ -266,7 +262,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
         if pronoun == Pronoun.ANI:
             if base[:2] == "oQ":
                 return "Qo" + base[2:]
-            if Gizra.PE_YOD in gizra:
+            if Gizra.PE_YOD == gizra:
                 return "Q" + base
             if base[0].islower():
                 return "Q" + ("e" if base[0] in "ie" else "a") + base[1:]
@@ -278,9 +274,9 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
         base_at = base.replace("Á", "")
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Gizra.PE_YOD in gizra:
+        elif Gizra.PE_YOD == gizra:
             base_at = re.sub(".!", "á" if base_at[-4] in GRONIYOT else "3" , base_at)
-        elif Gizra.KFULIM in gizra and len(base_at) == 6:
+        elif Gizra.KFULIM == gizra and len(base_at) == 6:
             base_at = base_at[:-1] + ("" if base_at[-1] in GRONIYOT else "_") + add_dagesh_lene(base_at[-1])
         else:
             assert base_at.endswith(CONSONANTS)
@@ -302,7 +298,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
             return base_at + "u" + ("" if "!" in base_at else "!")
         if pronoun in (Pronoun.ATEN, Pronoun.HEN):
             base = base.replace("Á", "")
-            if Gizra.AYIN_WAW in gizra and base.endswith("j"):
+            if Gizra.AYIN_WAW == gizra and base.endswith("j"):
                 AW.add(base)
                 return re.sub(".!", "A!", base) + "naH"
             if base.endswith("E!H"):
@@ -315,7 +311,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra
                 return re.sub("n3?n", "_n", base.replace("u!", "o!") + ("3" if base[-3] in "aiueoWY" else "") + "naH")
             return re.sub("n3?n", "_n", base + ("3" if base[-3] in "aiueoWY" else "") + "naH")
 
-def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra]) -> str:
+def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: Gizra) -> str:
     if pronoun == Pronoun.HU:
         return base
     base = base.replace("Á", "")
@@ -325,11 +321,11 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra])
         else:
             base = base.replace("a!H", "i!")
     if pronoun in (Pronoun.ANI, Pronoun.ATA, Pronoun.AT, Pronoun.ANACNU):
-        if binyan == Binyan.PAAL and Gizra.KFULIM in gizra and re.fullmatch(r"..!.", base):
+        if binyan == Binyan.PAAL and Gizra.KFULIM == gizra and re.fullmatch(r"..!.", base):
             if base[-1] in GRONIYOT + ("r",):
                 return re.sub(".!", "a" if base[-1] not in "j" else "A", base) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
             return base.replace("!", "")[:-1] + "_" + add_dagesh_lene(base[-1]) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
-        if binyan == Binyan.NIFAL and Gizra.KFULIM in gizra and re.fullmatch(r"na.A!.", base):
+        if binyan == Binyan.NIFAL and Gizra.KFULIM == gizra and re.fullmatch(r"na.A!.", base):
             return "n3" + base[2] + "A" + add_dagesh_forte(base[-1]) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
         if re.search(r"[aiueoAIUEOW]!?Y?$", base):
             res = base + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
@@ -343,7 +339,7 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra])
         res = res.replace("nn", "_n").replace("tT", "_T")
         return res
     if pronoun in (Pronoun.ATEM, Pronoun.ATEN):
-        if binyan == Binyan.PAAL and Gizra.KFULIM in gizra and re.fullmatch(r"..!.", base):
+        if binyan == Binyan.PAAL and Gizra.KFULIM == gizra and re.fullmatch(r"..!.", base):
             if base[-1] in GRONIYOT + ("r",):
                 return re.sub(".!", "a" if base[-1] not in "j" else "A", base) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
             return base.replace("!", "")[:-1] + "_" + add_dagesh_lene(base[-1]) + "W" + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
@@ -376,7 +372,7 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra])
                 return re.sub(r"á(?=.$)", "A", res) + "ta!H"
             return res + ("á" if res.endswith(GRONIYOT) else "3") + "ta!H"
         return re.sub(r"[aiueoAIUEOW]!?Y?$", "", base) + PRONOUN_PAST_SUFFIX[pronoun]
-    if Gizra.KFULIM in gizra and binyan in (Binyan.PAAL, Binyan.NIFAL, Binyan.HIFIL) and not (add_dagesh_lene(base[-1]) == add_dagesh_lene(base[-4]) and re.search(r"..!.$", base)):#not re.search(r"(.).!\1$", re.sub("(.).![fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base)):
+    if Gizra.KFULIM == gizra and binyan in (Binyan.PAAL, Binyan.NIFAL, Binyan.HIFIL) and not (add_dagesh_lene(base[-1]) == add_dagesh_lene(base[-4]) and re.search(r"..!.$", base)):#not re.search(r"(.).!\1$", re.sub("(.).![fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base)):
         return base[:-1] + ("" if base[-1] in "QRhjr" else "_") + add_dagesh_lene(base[-1]) + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
     if binyan == Binyan.HIFIL:
         return base + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
@@ -391,7 +387,7 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: set[Gizra])
             return base + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
         return re.sub(r"[Aae]!", "á" if base[-4] in GRONIYOT else "3", base) + PRONOUN_PAST_SUFFIX[pronoun]
 
-def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
+def past2future(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
     if binyan == Binyan.HITPAEL:
         return "y" + base[1:].replace("a!H", "E!H")
     if binyan in (Binyan.PIEL, Binyan.PUAL):
@@ -433,7 +429,7 @@ def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
         return "y" + ("e" if base[0] in GRONIYOT + ("r", ) else "I_") + add_dagesh_lene(base[0]) + "a" + remove_dagesh_lene(base[1]) + ("E!H" if base.endswith("aH")  else ("A" if base[3] in "hjR" else "e") + "!" + base[3])
     if binyan == Binyan.PAAL:
         if (m := re.fullmatch(r"(.)a(.)A!(.)", base)):
-            if Gizra.PAAL_PARADIGM_1 in gizra:
+            if Gizra.PAAL_PARADIGM_1 == gizra:
                 if m[1] in "QhRj":
                     return "yE" + m[1] + "é" + m[2] + "o!" + m[3]
                 if m[1] == "n":
@@ -443,7 +439,7 @@ def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
                 if m[2] == m[3]:
                     return "ya" + remove_dagesh_lene(m[1]) + "o!" + m[3]
                 return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "A!" + m[3]
-            if Gizra.PAAL_PARADIGM_2 in gizra:
+            if Gizra.PAAL_PARADIGM_2 == gizra:
                 if m[1] in "RjQh":
                     return "yA" + m[1] + add_dagesh_lene(m[2]) + "o!" + m[3]
                 if m[1] == "n":
@@ -458,17 +454,17 @@ def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
                 return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "A!" + m[3]
             return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "o!" + m[3]
         if re.fullmatch(r".a!.", base):
-            if Gizra.PAAL_PARADIGM_1 in gizra:
+            if Gizra.PAAL_PARADIGM_1 == gizra:
                 return "ya" + remove_dagesh_lene(base[0]) + "i!" + base[-1] + ("Á" if base[-1] in "Rhj" else "")
             return "ya" + remove_dagesh_lene(base[0]) + "u!" + base[-1] + ("Á" if base[-1] in "Rhj" else "")
         if re.fullmatch(r".A!.", base):
-            if Gizra.PAAL_PARADIGM_1 in gizra:
+            if Gizra.PAAL_PARADIGM_1 == gizra:
                 return "ya" + remove_dagesh_lene(base[0]) + "o!" + base[-1] + ("Á" if base[-1] in "Rhj" else "")
-            if Gizra.PAAL_PARADIGM_2 in gizra:
+            if Gizra.PAAL_PARADIGM_2 == gizra:
                 return "yI" + add_dagesh_forte(base[0]) + "o!" + base[-1] + ("Á" if base[-1] in "Rhj" else "")
             return "ye" + remove_dagesh_lene(base[0]) + "A!" + base[-1]
         if re.fullmatch(r".a.a!H", base):
-            if Gizra.PAAL_PARADIGM_1 in gizra:
+            if Gizra.PAAL_PARADIGM_1 == gizra:
                 if base[0] in "QhjR":
                     return "yE" + base[0] + "é" + base[2] + "E!H"
                 if base[0] == "n":
@@ -476,19 +472,19 @@ def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
                 if base[0] == "y":
                     return "yi" + base[2] + "E!H"
                 assert False
-            if Gizra.PAAL_PARADIGM_2 in gizra:
+            if Gizra.PAAL_PARADIGM_2 == gizra:
                 if base[0] in "RjQh":
                     return "yA" + base[0] + add_dagesh_lene(base[2]) + "E!H"
             if base[0] in "RjQh":
                 return "yA" + base[0] + "á" + base[2] + "E!H"
             return "yI" + remove_dagesh_lene(base[0]) + add_dagesh_lene(base[2]) + "E!H"
 
-def past2binyan(verb: str, gizra: set[Gizra]) -> Optional[Binyan]:
+def past2binyan(verb: str, gizra: Gizra) -> Optional[Binyan]:
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
         return Binyan.PAAL
     if re.fullmatch(".[aA]!.", verb):
         return Binyan.PAAL
-    if Gizra.PAAL_PARADIGM_1 in gizra:
+    if Gizra.PAAL_PARADIGM_1 == gizra:
         return Binyan.PAAL
     if re.fullmatch("hI..(i!.Á?|a!H)", verb):  # must be before PIEL and HITPAEL
         return Binyan.HIFIL
@@ -506,7 +502,7 @@ def past2binyan(verb: str, gizra: set[Gizra]) -> Optional[Binyan]:
         return Binyan.PUAL
     return None
 
-def __inflect(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[dict[str, str]]:
+def __inflect(base: str, binyan: Binyan, gizra: Gizra) -> Optional[dict[str, str]]:
     res = {}
     for pronoun in Pronoun:
         res["past_" + pronoun.name] = fixup(inflect_past(base, binyan, pronoun, gizra))
@@ -520,7 +516,7 @@ def __inflect(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[dict[str
 def inflect(base: str, binyan: Binyan, root: str) -> Optional[dict[str, str]]:
     return __inflect(base, binyan, Gizra.new(base, binyan, root))
 
-def inflect_minimal(verb: str, gizra: set[Gizra]) -> Optional[dict[str, str]]:
+def inflect_minimal(verb: str, gizra: Gizra) -> Optional[dict[str, str]]:
     binyan = past2binyan(verb, gizra)
     if binyan is None:
         return None
