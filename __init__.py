@@ -483,7 +483,7 @@ def past2future(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[str]:
                 return "yA" + base[0] + "á" + base[2] + "E!H"
             return "yI" + remove_dagesh_lene(base[0]) + add_dagesh_lene(base[2]) + "E!H"
 
-def past2binyan(verb: str, gizra: set[Gizra]) -> Binyan:
+def past2binyan(verb: str, gizra: set[Gizra]) -> Optional[Binyan]:
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
         return Binyan.PAAL
     if re.fullmatch(".[aA]!.", verb):
@@ -506,14 +506,22 @@ def past2binyan(verb: str, gizra: set[Gizra]) -> Binyan:
         return Binyan.PUAL
     return None
 
-def inflect(base: str, binyan: Binyan, root: str) -> dict[str, str]:
+def __inflect(base: str, binyan: Binyan, gizra: set[Gizra]) -> Optional[dict[str, str]]:
     res = {}
-    gizra = Gizra.new(base, binyan, root)
     for pronoun in Pronoun:
         res["past_" + pronoun.name] = fixup(inflect_past(base, binyan, pronoun, gizra))
     future_base = past2future(base, binyan, gizra)
     if future_base is None:
-        return res
+        return None
     for pronoun in Pronoun:
         res["future_" + pronoun.name] = fixup(inflect_future(future_base, binyan, pronoun, gizra))
     return res
+
+def inflect(base: str, binyan: Binyan, root: str) -> Optional[dict[str, str]]:
+    return __inflect(base, binyan, Gizra.new(base, binyan, root))
+
+def inflect_minimal(verb: str, gizra: set[Gizra]) -> Optional[dict[str, str]]:
+    binyan = past2binyan(verb, gizra)
+    if binyan is None:
+        return None
+    return __inflect(verb, binyan, gizra)
