@@ -67,12 +67,17 @@ PAAL_PARADIGM_1 = {
     'RavA!c', 'QavA!d', 'caQA!7', 'QasA!f', 'hawa!H', 'nagA!f', 'baSA!m', 'halA!x', 'lahA!v', 'TaQA!m', 'ca!r', 'saRA!d', 'lajA!Z', 'maja!Q', 'QasA!r', 'caxA!n', 'ZajA!q', 'QahA!v', 'qa!Q', 'QarA!v', 'ZanA!n', 'macA!c', 'Sane!Q', 'naqA!m', 'caxA!v', 'lahA!g', 'Zame!Q', 'ZaRA!f', 'GaRA!c', 'paRA!l', 'nasA!R', 'yaqA!d', 'saxA!l', 'Qana!H', 'yaRA!f', 'male!Q', 'qarA!n', 'la!Z', 'DaQA!g', 'sajA!v', 'ja!l', 'jara!H', 'bajA!l', 'rajA!f', 'maRA!x', '7aRA!n', 'zaqA!n', 'qamA!l', 'ZaRA!n', 'caQA!l', 'kajA!l', 'baRA!l', 'QagA!f', 'Qara!H', 'nacA!v', 'yasA!d', 'natA!Z', 'me!t', 'raqA!v', 'GaQA!l', 'nasA!x', 'ra!c', 'qarA!v', '7ahA!r', 'natA!c', 'bara!Q', 'camA!n', 'jamA!Z', 'kavA!d', 'caxA!x', 'GahA!r', 'rajA!q', 'jazA!q', 'pajA!t', 'na7A!r', 'DajA!q', 'jafa!H', 'jarA!d', 'zahA!r', 'na7A!f', 'RacA!t', 'paRA!m', 'yaRA!Z', 'na7a!H', 'lA!R', 'bahA!q', 'ragA!l', 'Daca!Q', 'QarA!g', 'ca!t', 'haga!H', 'kacA!l', 'RacA!r', 'yavA!c', 'barA!d', 'navA!l', 'GaRA!l', 'qarA!m', 'Zava!Q', 'QaZA!l', 'Gama!Q', 'QagA!r', 'DavA!q', 'GavA!r', 'yare!Q', 'qacA!c', 'GahA!q', 'yarA!c', 'SagA!v', 'caRA!7', 'jasa!H', 'qarA!c', 'natA!z', 'caQA!f', '7ajA!n', 'rA!v', 'pajA!r', 'yacA!n', 'QamA!d', 'nafA!j', 'yaRA!d', 'QarA!z', 'DahA!r', 'sa!d', 'cajA!q', 'jaZa!H', 'qadA!r', 'naZA!r', 'QazA!r', 'nafA!l', 'ZaRA!d', 'rahA!v', 'laRA!7', 'pacA!r', 'lavA!c', 'naRA!l', 'majA!l', 'DA!q', 'pahA!q', 'sajA!r', 'nadA!r', 'GajA!x', 'DalA!q', 'ba7A!l', 'zaRA!m', '7ala!Q', 'cA!j', 'sava!Q', 'naRA!r', 'yada!H', 'caQA!g', 'QanA!q', 'caQA!v', 'yaqA!v', 'raRA!d', 'ha!m', 'QamA!r', 'naca!H', 'jasA!r', 'jada!H', 'ravA!Z', 'GadA!l', 'yara!H', 'calA!m', 'maRA!d', 'RA!z', 'nagA!h', 'maRA!l', 'najA!t', 'yazA!m', 'raQA!m', 'DajA!s', 'Qata!H', 'mA!x', 'jarA!Z', 'nagA!R', 'TaxA!l', 'cafA!r', 'rA!m', 'naSa!Q', 'yafa!H', 'DacA!n', 'janA!n', 'nasA!j', 'yaZa!Q', 'lahA!7', 'qacA!v', 'ba!Q', 'kacA!r', 'rafa!Q', 'yagA!R', 'ZaRA!q', 'SaRA!r', 'najA!r', 'Qala!H', 'laRA!s', 'sajA!f', 'ZahA!l', 'qadA!m', 'RacA!n', 'majA!q', 'QavA!s', 'raRA!v', 'Qava!H', 'nahA!g', 'jarA!v', 'raRA!f', 'majA!Z', 'sama!Q', 'bacA!l', 'QaZA!r', 'jaza!H', 'rA!n', 'bajA!c', 'qa7A!n', 'yaRA!7', 'ZaRA!r', 'raxA!v', 'zaRA!q', 'TajA!m', 'samA!r', 'kaRA!s', 'ZamA!q', 'zaRA!f', 'mahA!l', 'baRA!r', 'nahA!q', 'janA!f', 'yarA!7', 'la!n', 'TaQA!v', 'ra!v', 'laRA!z', 'paRA!r', 'caRA!r', 'QagA!d', 'cafA!l', '7aRA!m', 'naRA!Z', 'TahA!d', 'DaQA!v', 'na7A!R', 'kaQA!v', 'ZahA!v', 'naxA!s', 'rajA!m', 'rahA!7', 'DajA!f', 'DA!l', 'nadA!j', 'rajA!c', 'ja7a!Q', 'zahA!v', 'jawa!H', 'pazA!z', 'nagA!S', 'SajA!q', 'qafa!Q', 'yaZA!r', 'QaxA!l', 'sa!j', 'cajA!d', 'jaca!H', 'nadA!v', 'ra!r', 'saQA!n', 'Qa7A!m', 'barA!x', 'bahA!r', 'hadA!r', 'nagA!v', 'GamA!m', 'QamA!n', 'mahA!r', 'kawA!Z', 'RatA!q', 'kala!Q', 'baZA!q', 'QafA!f', 'paZA!r', 'GajA!n', 'na7A!c', 'ZahA!r', 'TaQA!r', 'cajA!7', 'raRA!m', 'TaQA!w', 'calA!w', 'ratA!t', 'QafA!d', 'baRA!7', 'laqA!q', 'yanA!q', 'yaRa!H', 'saRA!r', 'camA!m', 'sajA!7', 'yaZA!q', 'zajA!l', 'lamA!d', 'Sa!m', 'ragA!c', 'bajA!n', 'QazA!q', 'bajA!r', 'Qafa!H', 'maZa!Q', 'jacA!x', 'lajA!x', 'Sa!S', 'natA!q', 'hada!H', 'nahA!m', 'nazA!r', 'rajA!Z', 'Ga!j', 'naZa!H', 'havA!l', 'baQA!c', 'cajA!f', 'lajA!m', 'laRA!g', 'savA!v', 'GaRA!r', 'caQA!r', 'kajA!c', 'Ga!l', 'ragA!z', 'basA!m', 'yasA!r', 'pajA!s', 'qara!Q', 'TajA!v', 'raRA!c', 'haza!H', 'na7A!l', 'qaZA!r', 'QajA!z', 'ba!n', 'RacA!c', 'QanA!s', 'raRA!Z', 'Qa7A!r', 'baza!Q', 'yarA!q', '7ame!Q', 'hama!H', 'rafA!d', 'maQA!s', 'pajA!d', 'bagA!r', 'caQA!n', 'DaRA!x', 'samA!q', 'natA!n', 'QaxA!f', 'lajA!c', 'najA!l', 'na!r', 'jadA!l', 'GalA!d', 'ZadA!q', 'majA!7', 'QahA!d', 'QafA!Z',
 }
 # belong to 2+ paal paradigms:
-# {'jarA!r', 'DamA!m', 'jaqA!q', 'jafA!f', 'javA!v', 'GadA!d', 'zaqA!q', 'hamA!m', 'jaZA!Z', 'malA!l', 'QarA!r', 'ja7A!7', 'jagA!g', 'jacA!c', 'kasA!s', 'jaxA!x', }
+# {'jarA!r', 'DamA!m', 'jaqA!q', 'jafA!f', 'javA!v', 'GadA!d', 'zaqA!q',
+# 'hamA!m', 'jaZA!Z', 'malA!l', 'QarA!r', 'ja7A!7', 'jagA!g', 'jacA!c',
+# 'kasA!s', 'jaxA!x', }
 # {'sa!d', 'la!n', 'ca!r', 'ja!l'}
-PAAL_PARADIGM_2 = {'natA!r', 'TacA!c', 'jalA!d', 'jatA!m', 'jalA!f', 'jarA!7', 'jafA!S', 'jacA!r', 'jata!H', 'ja7A!f', 'jalA!v', 'jafA!t', 'janA!v', 'yadA!R', 'yarA!d', 'jarA!g', 'jamA!d', 'jaqA!r', 'janA!x', 'jalA!c', 'jatA!l', 'jamA!q', 'jazA!r', 'javA!7', 'javA!Z', 'laqA!j', 'nasA!q', 'jacA!v', 'yacA!v', 'jatA!f', 'janA!q', 'jaZA!v', 'nacA!l', 'jacA!d', 'ja7A!v', 'qA!d', 'jafA!z', 'naQA!Z', 'nazA!l', 'jacA!q', 'jaxA!r', 'qA!v', 'jamA!r', 'jarA!f', 'naQA!m', 'jasA!m', 'jatA!x', 'jafA!Z', 'jarA!z', 'haxA!r', 'TA!m', 'jalA!7', 'jatA!r', 'jaSA!x', 'jarA!t', 'jamA!s', 'javA!c', 'jaSA!f', 'jaZA!d', 'jasA!x', 'jalA!Z', 'yalA!d', 'jagA!r', 'jadA!r', 'hadA!x', 'naQA!f', 'javA!l', 'jalA!q', 'naQA!q', 'jasA!l', 'jamA!l', 'jafA!r', 'jala!H', 'Rada!H', 'nacA!q', 'RatA!r', }
+PAAL_PARADIGM_2 = {
+    'natA!r', 'TacA!c', 'jalA!d', 'jatA!m', 'jalA!f', 'jarA!7', 'jafA!S', 'jacA!r', 'jata!H', 'ja7A!f', 'jalA!v', 'jafA!t', 'janA!v', 'yadA!R', 'yarA!d', 'jarA!g', 'jamA!d', 'jaqA!r', 'janA!x', 'jalA!c', 'jatA!l', 'jamA!q', 'jazA!r', 'javA!7', 'javA!Z', 'laqA!j', 'nasA!q', 'jacA!v', 'yacA!v', 'jatA!f', 'janA!q', 'jaZA!v', 'nacA!l', 'jacA!d', 'ja7A!v', 'qA!d', 'jafA!z', 'naQA!Z', 'nazA!l', 'jacA!q', 'jaxA!r', 'qA!v', 'jamA!r', 'jarA!f', 'naQA!m', 'jasA!m', 'jatA!x', 'jafA!Z', 'jarA!z', 'haxA!r', 'TA!m', 'jalA!7', 'jatA!r', 'jaSA!x', 'jarA!t', 'jamA!s', 'javA!c', 'jaSA!f', 'jaZA!d', 'jasA!x', 'jalA!Z', 'yalA!d', 'jagA!r', 'jadA!r', 'hadA!x', 'naQA!f', 'javA!l', 'jalA!q', 'naQA!q', 'jasA!l', 'jamA!l', 'jafA!r', 'jala!H', 'Rada!H', 'nacA!q', 'RatA!r',
+}
+# PAAL_PARADIGM_3 = {
+#     '7ahA!r', 'jarA!v', 'yavA!c', 'kamA!c', 'RacA!t', 'QacA!m', 'qanA!7', 'calA!w', 'jadA!l', 'RacA!n', 'yaRA!f', 'RacA!c', 'caqA!7', 'DacA!n', 'jarA!d', 'TaQA!w', 'SavA!R', 'cafA!l', 'raRA!v', 'kacA!r', 'baZA!q', 'qarA!v', 'QavA!l', 'bacA!l', 'jafA!Z', 'RarA!v', 'RavA!c', 'QafA!l', 'qamA!l', 'janA!f', 'zaqA!n', 'kajA!c', 'TaQA!v', 'kavA!d', 'ba7A!l', 'camA!n', 'kawA!Z', 'yacA!n', 'jazA!q', 'jamA!Z', 'DavA!q', 'GadA!l', 'calA!m', 'qaZA!r', 'jacA!x', 'jasA!r', 'RatA!q', 'qa7A!n', 'RamA!l', 'QafA!s',
+# }
 assert not (PAAL_PARADIGM_1 & PAAL_PARADIGM_2)
-
-AW = set()
 
 DAGESH_LENE = {
     "x": "k",
@@ -299,7 +304,6 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, gizra: Gizra) ->
         if pronoun in (Pronoun.ATEN, Pronoun.HEN):
             base = base.replace("Á", "")
             if Gizra.AYIN_WAW == gizra and base.endswith("j"):
-                AW.add(base)
                 return re.sub(".!", "A!", base) + "naH"
             if base.endswith("E!H"):
                 return base[:-3] + "E!YnaH"
@@ -479,12 +483,55 @@ def past2future(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
                 return "yA" + base[0] + "á" + base[2] + "E!H"
             return "yI" + remove_dagesh_lene(base[0]) + add_dagesh_lene(base[2]) + "E!H"
 
+def past2present(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
+    if binyan == Binyan.HITPAEL:
+        return "m" + base[1:].replace("a!H", "E!H")
+    if binyan in (Binyan.PIEL, Binyan.PUAL):
+        base = re.sub("A!", "a!", base)
+        base = "m3" + remove_dagesh_lene(base[0]) + re.sub("^[Ie]", "a" if re.search("e[rQ].!", base) else "A", base[1:])
+        return base.replace("a!H", "E!H")
+    if binyan == Binyan.HIFIL:
+        base = base.replace("a!H", "E!H")
+        if re.match("^hE.é", base):
+            return "m" + "A" + base[2] + "á" + base[4:]
+        if re.fullmatch("he..!.Á?", base):
+            return "m" + base[1:]
+        if base[1:3] == "eY" or base[1] in "aW":
+            return "m" + base[1:]
+        if base[1] in "iueo":
+            return "ma" + base[2:]
+        return "mA" + base[2:]
+    if binyan == Binyan.HUFAL:
+        base = re.sub("A!", "a!", base)
+        return "m" + base[1:].replace("a!H", "E!H")
+    if binyan == Binyan.NIFAL:
+        if re.fullmatch(r"n(?:I_?|W)(.)A!(.)", base) or re.fullmatch(r"na(.)A!.", base):
+            return base.replace("A!", "a!")
+        if re.match(r"n[IE].é?.A!.", base):
+            return base.replace("A!", "a!")
+        return base
+    if binyan == Binyan.PAAL:
+        if re.fullmatch(r".a.A!.", base):
+            return base[0] + "W" + base[2] + "e!" + base[-1] + ("Á" if base[-1] in GRONIYOT else "")
+        if re.fullmatch(r".a.a!H", base):
+            return base[0] + "W" + base[2] + "E!H"
+        if re.fullmatch(r".[aA]!.", base):
+            return base
+        if re.fullmatch(r".a.a!Q", base):
+            if gizra == Gizra.PAAL_PARADIGM_1:
+                return base[0] + "W" + base[2] + "e!Q"
+            return base[0] + "W" + base[2] + "a!Q"
+        if re.fullmatch(r".a.e!Q", base):
+            return base
+        return base
+    
+
 def past2binyan(verb: str, gizra: Gizra) -> Optional[Binyan]:
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
         return Binyan.PAAL
     if re.fullmatch(".[aA]!.", verb):
         return Binyan.PAAL
-    if Gizra.PAAL_PARADIGM_1 == gizra:
+    if gizra in {Gizra.PE_YOD, Gizra.AYIN_WAW, Gizra.PAAL_PARADIGM_1, Gizra.PAAL_PARADIGM_2}:
         return Binyan.PAAL
     if re.fullmatch("hI..(i!.Á?|a!H)", verb):  # must be before PIEL and HITPAEL
         return Binyan.HIFIL

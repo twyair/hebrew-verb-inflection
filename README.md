@@ -19,5 +19,5 @@ inflect_minimal("nafA!l", Gizra.PAAL_PARADIGM_1)
 # TODO
 
 - [ ] `inflect_present()`
-- [ ] `past2present()`
+- [X] `past2present()`
 - [X] `past2binyan()`
