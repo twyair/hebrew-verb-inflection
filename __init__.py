@@ -402,8 +402,10 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, gizra: Gizra) -> s
 def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> str:
     if param == Present.MALE_SINGULAR:
         return base
-    if binyan in (Binyan.HITPAEL, Binyan.PIEL):
+    if binyan in (Binyan.HITPAEL, Binyan.PIEL) or binyan == Binyan.PAAL and re.fullmatch(".W.e!.Á?|.[aW].E!H", base):
         if param == Present.FEMALE_SINGULAR:
+            if base.endswith("e!Q") and binyan in (Binyan.HITPAEL, Binyan.PIEL):
+                return base + "t"
             if re.search("e!.Á?$", base):
                 return re.sub(r"e!(.)Á?$", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
             if base.endswith("E!H"):
@@ -411,16 +413,22 @@ def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> 
                 return base.replace("E!H", "a!H")
         if param == Present.MALE_PLURAL:
             if re.search("e!.Á?$", base):
+                if re.search(r"á.e!.Á?$", base):
+                    return re.sub(r"á(.)e!", r"A\1", base.replace("Á", "")) + "i!m"
                 return re.sub(r"(.)e!(.)Á?$", lambda m: m[1] + ("á" if m[1] in GRONIYOT else "3") + m[2], base) + "i!m"
             if base.endswith("E!H"):
                 return base.replace("E!H", "i!m")
         if param == Present.FEMALE_PLURAL:
             if re.search("e!.Á?$", base):
+                if re.search(r"á.e!.Á?$", base):
+                    return re.sub(r"á(.)e!", r"A\1", base.replace("Á", "")) + "W!t"
                 return re.sub(r"(.)e!(.)Á?$", lambda m: m[1] + ("á" if m[1] in GRONIYOT else "3") + m[2], base) + "W!t"
             if base.endswith("E!H"):
                 return base.replace("E!H", "W!t")
     if binyan in (Binyan.PUAL, Binyan.HUFAL, Binyan.NIFAL):
         if param == Present.FEMALE_SINGULAR:
+            if base.endswith("a!Q"):
+                return base[:-3] + "e!Qt"
             if re.search("a!.$", base):
                 return re.sub(r"a!(.)", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
             if base.endswith("E!H"):
@@ -437,6 +445,14 @@ def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> 
             if base.endswith("E!H"):
                 return base.replace("E!H", "W!t")
     if binyan == Binyan.HIFIL:
+        if re.fullmatch("me.e![^Rr]Á?", base):
+            return "m3" + base[2] + "I" + add_dagesh_forte(base[5]) + {
+                Present.FEMALE_SINGULAR: "a!H",
+                Present.MALE_PLURAL: "i!m",
+                Present.FEMALE_PLURAL: "W!t"
+            }[param]
+        if re.match("me[^Y]", base):
+            base = "m3" + base[2:]
         if re.search("[" + "".join(CONSONANTS) + "]Á?$", base):
             return base.replace("!", "").replace("Á", "") + {
                 Present.FEMALE_SINGULAR: "a!H",
@@ -445,6 +461,23 @@ def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> 
             }[param]
         if base.endswith("E!H"):
             return base[:-3] + {
+                Present.FEMALE_SINGULAR: "a!H",
+                Present.MALE_PLURAL: "i!m",
+                Present.FEMALE_PLURAL: "W!t"
+            }[param]
+    if binyan == Binyan.PAAL:
+        if re.fullmatch(".a!.", base):
+            return base.replace("!", "") + {
+                Present.FEMALE_SINGULAR: "a!H",
+                Present.MALE_PLURAL: "i!m",
+                Present.FEMALE_PLURAL: "W!t"
+            }[param]
+        if re.fullmatch(".A!.", base):
+            if base.endswith(GRONIYOT + ("r", )):
+                base = base.replace("A!", "a")
+            else:
+                base = base[:-2] + add_dagesh_forte(base[-1])
+            return base + {
                 Present.FEMALE_SINGULAR: "a!H",
                 Present.MALE_PLURAL: "i!m",
                 Present.FEMALE_PLURAL: "W!t"
