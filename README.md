@@ -1,17 +1,17 @@
 # Usage
 
-to conjugate a verb use `inflect_minimal` it takes the verb's base form (past+male+3rd-person+singular/עבר-נסתר) and its conjugation class (one of `Gizra`'s variants)
+to conjugate a verb use `inflect()` it takes the verb's base form (past+male+3rd-person+singular/עבר-נסתר) and its conjugation class (one of `Paradigm`'s variants)
 
 to conjugate "שׁ ָמ ַר":
 
 ```python
-inflect_minimal("camA!r", Gizra.NONE)
+inflect("camA!r", Paradigm.NONE)
 ```
 
 to conjugate "נ ָפ ַל":
 
 ```python
-inflect_minimal("nafA!l", Gizra.PAAL_PARADIGM_1)
+inflect("nafA!l", Paradigm.PAAL_1)
 ```
 
 `data/bases-minimal.json` contains a set of base forms and their conjugation classes
