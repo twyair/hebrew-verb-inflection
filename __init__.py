@@ -483,6 +483,17 @@ def inflect_present(base: str, binyan: Binyan, param: Present, gizra: Gizra) -> 
                 Present.FEMALE_PLURAL: "W!t"
             }[param]
 
+def future2infinitive(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
+    assert binyan not in (Binyan.PUAL, Binyan.HUFAL)
+    if binyan in (Binyan.HIFIL, Binyan.NIFAL, Binyan.HITPAEL):
+        return "l3h" + base[1:].replace("E!H", "W!t")
+    if binyan == Binyan.PIEL:
+        return "l" + base[1:].replace("E!H", "W!t")
+    if binyan == Binyan.PAAL:
+        if base.endswith("E!H"):
+            return "l" + base[1:].replace("E!H", "W!t")
+        return "l" + re.sub("[^iu]!(.)Á?$", lambda m: "o!" + m[1] + ("Á" if m[1] in GRONIYOT else ""), base[1:])
+
 def past2future(base: str, binyan: Binyan, gizra: Gizra) -> Optional[str]:
     if binyan == Binyan.HITPAEL:
         return "y" + base[1:].replace("a!H", "E!H")
@@ -653,7 +664,9 @@ def __inflect(base: str, binyan: Binyan, gizra: Gizra) -> Optional[dict[str, str
     for pronoun in Pronoun:
         res["future_" + pronoun.name] = fixup(inflect_future(future_base, binyan, pronoun, gizra))
     for param in Present:
-        res["present_" + param.name] = fixup(inflect_present(present_base, binyan, param, gizra) or "")
+        res["present_" + param.name] = fixup(inflect_present(present_base, binyan, param, gizra) or "")  # FIXME
+    if binyan not in (Binyan.PUAL, Binyan.HUFAL):
+        res["shem_poal"] = fixup(future2infinitive(future_base, binyan, gizra) or "")
     return res
 
 def inflect(base: str, binyan: Binyan, root: str) -> Optional[dict[str, str]]:

@@ -21,3 +21,4 @@ inflect_minimal("nafA!l", Gizra.PAAL_PARADIGM_1)
 - [X] `inflect_present()`
 - [X] `past2present()`
 - [X] `past2binyan()`
+- [X] `future2infinitive()`
