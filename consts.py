@@ -1,6 +1,18 @@
 from __future__ import annotations
 from enum import Enum, auto
 
+class Paradigm(Enum):
+    NONE = auto()
+    KFULIM = auto()
+    PE_YOD = auto()  # used only for PAAL
+    AYIN_WAW = auto()  # used only for PAAL
+    PE_ALEF = auto()  # used only for PAAL
+    PAAL_1 = auto()
+    PAAL_2 = auto()
+    PAAL_3 = auto()
+    PAAL_4 = auto()
+
+
 class Binyan(Enum):
     PAAL = auto()
     PIEL = auto()

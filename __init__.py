@@ -2,8 +2,7 @@ from __future__ import annotations
 import re
 from typing import Optional
 
-from consts import Binyan, Present, Pronoun
-from paradigm import Paradigm
+from consts import Binyan, Present, Pronoun, Paradigm
 
 CONSONANTS = tuple("QbvgGdDhwzj7ykxlmnsRpfZqrcStT")
 GRONIYOT = tuple("hjQR")
@@ -446,6 +445,8 @@ def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
             base = re.sub(r"(?<=^.)é", "", base)
         return "y" + ("e" if base[0] in GRONIYOT_RESH else "I_") + add_dagesh_lene(base[0]) + "a" + remove_dagesh_lene(base[1]) + ("E!H" if base.endswith("aH")  else ("A" if base[3] in "hjR" else "e") + "!" + base[3])
     if binyan == Binyan.PAAL:
+        if base == 'halA!x':
+            return "yele!x"
         if (m := re.fullmatch(r"(.)a(.)A!(.)", base)):
             if Paradigm.PE_ALEF == paradigm:
                 return "yoQ" + m[2] + "A!" + m[3]
@@ -548,6 +549,8 @@ def past2present(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]
         return base
 
 def past2binyan(verb: str, paradigm: Paradigm) -> Optional[Binyan]:
+    if re.fullmatch("n(a.|ej)A!.", verb) and paradigm == Paradigm.KFULIM:
+        return Binyan.NIFAL
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
         return Binyan.PAAL
     if re.fullmatch(".[aA]!.", verb):
@@ -560,7 +563,7 @@ def past2binyan(verb: str, paradigm: Paradigm) -> Optional[Binyan]:
         return Binyan.HIFIL
     if re.match("hI(t.|[csS]T|Z7|zD)", verb) or re.fullmatch("hI_[7TD](A(.á?.|[rhjRQ])|a[rQ])(e!.Á?|a!H|a!Q)", verb):
         return Binyan.HITPAEL
-    if re.fullmatch("nI..(A!.|a!Q)", verb) or re.fullmatch("n(I.|E[jRhQ]é?).a!H", verb) or re.fullmatch("nE[jRhQ]é?.(A!.|a!Q)", verb) or re.fullmatch("nW.A!.", verb) or re.fullmatch("nI[rjhRQ]A!.", verb):
+    if re.fullmatch("nI..(A!.|a!Q)", verb) or re.fullmatch("n(I.|E[jRhQ]é?).a!H", verb) or re.fullmatch("nE[jRhQ]é?.(A!.|a!Q)", verb) or re.fullmatch("nW.(A!.|a!Q|a!H)", verb) or re.fullmatch("nI[rjhRQ]A!.", verb) or re.fullmatch("nA[Rjh]á.a!H", verb):
         return Binyan.NIFAL
     if re.fullmatch(".(I.á?.|I..3.|[Ie][jRQhr])(e!.Á?|a!H)", verb) or re.fullmatch(r".W(.)e!.Á?", verb):
         return Binyan.PIEL
