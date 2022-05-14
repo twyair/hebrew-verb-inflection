@@ -4,3 +4,4 @@ __pycache__
 temp
 verbs*.json
 expected.json
+data/bases.json

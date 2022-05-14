@@ -1,31 +1,11 @@
 [
     {
-        "verb": "hU_lA!l",
-        "paradigm": "KFULIM"
-    },
-    {
         "verb": "nARáwa!H",
         "paradigm": "NONE"
     },
     {
-        "verb": "DalA!q",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "hU_TA!c",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "naSa!Q",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "jafA!f",
-        "paradigm": "PAAL_3"
-    },
-    {
-        "verb": "la!n",
-        "paradigm": "PAAL_1"
+        "verb": "nIjA!t",
+        "paradigm": "KFULIM"
     },
     {
         "verb": "hIsTAnkre!n",
@@ -36,32 +16,16 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "haya!H",
-        "paradigm": "PAAL_3"
-    },
-    {
-        "verb": "jacA!c",
-        "paradigm": "PAAL_3"
-    },
-    {
-        "verb": "jamA!r",
-        "paradigm": "PAAL_2"
-    },
-    {
         "verb": "nejA!m",
         "paradigm": "KFULIM"
     },
     {
         "verb": "jafa!H",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_2"
     },
     {
         "verb": "navA!q",
         "paradigm": "KFULIM"
-    },
-    {
-        "verb": "RarA!v",
-        "paradigm": "PAAL_4"
     },
     {
         "verb": "naqA!l",
@@ -76,23 +40,15 @@
         "paradigm": "NONE"
     },
     {
+        "verb": "nacA!m",
+        "paradigm": "KFULIM"
+    },
+    {
         "verb": "nazA!j",
         "paradigm": "KFULIM"
     },
     {
-        "verb": "nI_ca!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "nejA!n",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "hI_sa!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "qA!l",
         "paradigm": "KFULIM"
     },
     {
@@ -104,10 +60,6 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "hUrhA!r",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "laqA!q",
         "paradigm": "PAAL_1"
     },
@@ -116,24 +68,8 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "hU_mA!m",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "nI_sa!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "hujA!l",
         "paradigm": "KFULIM"
-    },
-    {
-        "verb": "zA!x",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "laqA!j",
-        "paradigm": "PAAL_2"
     },
     {
         "verb": "ca!j",
@@ -156,8 +92,8 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "QerA!j",
-        "paradigm": "NONE"
+        "verb": "hujA!l",
+        "paradigm": "KFULIM"
     },
     {
         "verb": "qA!d",
@@ -168,20 +104,12 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "jA!m",
-        "paradigm": "KFULIM"
-    },
-    {
         "verb": "mA!r",
         "paradigm": "KFULIM"
     },
     {
         "verb": "namA!q",
         "paradigm": "KFULIM"
-    },
-    {
-        "verb": "heqi!Z",
-        "paradigm": "NONE"
     },
     {
         "verb": "rA!R",
@@ -212,10 +140,6 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "naxA!s",
-        "paradigm": "PAAL_1"
-    },
-    {
         "verb": "ZanA!n",
         "paradigm": "PAAL_1"
     },
@@ -237,14 +161,6 @@
     },
     {
         "verb": "DamA!m",
-        "paradigm": "PAAL_3"
-    },
-    {
-        "verb": "nI_wa!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "ZIjZA!j",
         "paradigm": "NONE"
     },
     {
@@ -254,10 +170,6 @@
     {
         "verb": "Qava!H",
         "paradigm": "PE_ALEF"
-    },
-    {
-        "verb": "kasA!s",
-        "paradigm": "PAAL_3"
     },
     {
         "verb": "jaya!H",
@@ -270,14 +182,6 @@
     {
         "verb": "QahA!l",
         "paradigm": "PAAL_3"
-    },
-    {
-        "verb": "nWdA!d",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "rA!x",
-        "paradigm": "KFULIM"
     },
     {
         "verb": "jala!H",
@@ -297,11 +201,7 @@
     },
     {
         "verb": "jafA!Z",
-        "paradigm": "PAAL_4"
-    },
-    {
-        "verb": "QI_lA!j",
-        "paradigm": "NONE"
+        "paradigm": "PAAL_2"
     },
     {
         "verb": "hamA!m",
@@ -312,20 +212,8 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "jaxA!x",
-        "paradigm": "PAAL_3"
-    },
-    {
         "verb": "hece!RÁ",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "nadA!d",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "GA!s",
-        "paradigm": "KFULIM"
+        "paradigm": "NONE"
     },
     {
         "verb": "rA!n",
@@ -340,10 +228,6 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "hUfnA!7",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "yare!Q",
         "paradigm": "PAAL_1"
     },
@@ -353,7 +237,7 @@
     },
     {
         "verb": "hece!jÁ",
-        "paradigm": "KFULIM"
+        "paradigm": "NONE"
     },
     {
         "verb": "Sane!Q",
@@ -376,8 +260,8 @@
         "paradigm": "KFULIM"
     },
     {
-        "verb": "hI_Ga!H",
-        "paradigm": "NONE"
+        "verb": "nacA!m",
+        "paradigm": "KFULIM"
     },
     {
         "verb": "rWqA!n",
@@ -388,28 +272,12 @@
         "paradigm": "KFULIM"
     },
     {
-        "verb": "nI_pa!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "kIjkA!j",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "hElQa!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "RaZA!m",
         "paradigm": "PAAL_3"
     },
     {
         "verb": "namA!s",
         "paradigm": "KFULIM"
-    },
-    {
-        "verb": "hI_na!H",
-        "paradigm": "NONE"
     },
     {
         "verb": "yaZA!r",
@@ -420,24 +288,12 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "hUdhA!d",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "hU_sa!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "yada!H",
         "paradigm": "PAAL_1"
     },
     {
         "verb": "camA!m",
         "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "jarA!c",
-        "paradigm": "PAAL_3"
     },
     {
         "verb": "hI_Ti!c",
@@ -472,12 +328,8 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "naZA!Z",
+        "verb": "hI_Ti!c",
         "paradigm": "KFULIM"
-    },
-    {
-        "verb": "hI_wa!H",
-        "paradigm": "NONE"
     },
     {
         "verb": "za!j",
@@ -488,24 +340,16 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "ca!r",
-        "paradigm": "PAAL_1"
-    },
-    {
         "verb": "heYsi!r",
         "paradigm": "NONE"
     },
     {
         "verb": "nWRA!R",
-        "paradigm": "NONE"
+        "paradigm": "NO_PREFIX"
     },
     {
         "verb": "hesi!jÁ",
         "paradigm": "NONE"
-    },
-    {
-        "verb": "javA!v",
-        "paradigm": "PAAL_3"
     },
     {
         "verb": "nARála!H",
@@ -516,16 +360,8 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "hU_TA!l",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "caqA!7",
         "paradigm": "PAAL_4"
-    },
-    {
-        "verb": "nI_Da!H",
-        "paradigm": "NONE"
     },
     {
         "verb": "nacA!s",
@@ -533,7 +369,7 @@
     },
     {
         "verb": "hefe!jÁ",
-        "paradigm": "KFULIM"
+        "paradigm": "NONE"
     },
     {
         "verb": "nARána!H",
@@ -544,22 +380,6 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "nI_ka!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "hU_TA!x",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "hU_pA!x",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "here!s",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "caxA!x",
         "paradigm": "PAAL_1"
     },
@@ -568,32 +388,12 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "hI_ma!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "jagA!g",
-        "paradigm": "PAAL_3"
-    },
-    {
         "verb": "qanA!7",
         "paradigm": "PAAL_4"
     },
     {
         "verb": "saQA!n",
         "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "qadA!r",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "hU_Ga!H",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "hU_wA!n",
-        "paradigm": "NONE"
     },
     {
         "verb": "heni!Q",
@@ -620,14 +420,6 @@
         "paradigm": "PAAL_4"
     },
     {
-        "verb": "hU_DA!q",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "GadA!d",
-        "paradigm": "PAAL_3"
-    },
-    {
         "verb": "Ga!j",
         "paradigm": "PAAL_1"
     },
@@ -640,10 +432,6 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "hItlARle!RÁ",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "Ra7A!n",
         "paradigm": "NONE"
     },
@@ -653,7 +441,7 @@
     },
     {
         "verb": "here!RÁ",
-        "paradigm": "KFULIM"
+        "paradigm": "NONE"
     },
     {
         "verb": "DA!q",
@@ -680,10 +468,6 @@
         "paradigm": "PAAL_1"
     },
     {
-        "verb": "nI_qa!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "nWra!Q",
         "paradigm": "NONE"
     },
@@ -700,10 +484,6 @@
         "paradigm": "PAAL_3"
     },
     {
-        "verb": "nI_ba!H",
-        "paradigm": "NONE"
-    },
-    {
         "verb": "hIcp3ri!Z",
         "paradigm": "NONE"
     },
@@ -717,27 +497,11 @@
     },
     {
         "verb": "yaZa!Q",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "hada!H",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "ja7a!Q",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "yarA!c",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "jawa!H",
-        "paradigm": "PAAL_1"
-    },
-    {
-        "verb": "natA!n",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "yara!H",
@@ -749,15 +513,11 @@
     },
     {
         "verb": "hUsnA!n",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "heje!l",
-        "paradigm": "KFULIM"
-    },
-    {
-        "verb": "hUnDA!s",
         "paradigm": "NONE"
+    },
+    {
+        "verb": "nIjA!t",
+        "paradigm": "KFULIM"
     },
     {
         "verb": "ja7A!7",
