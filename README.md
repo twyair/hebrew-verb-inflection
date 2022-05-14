@@ -16,9 +16,11 @@ inflect("nafA!l", Paradigm.PAAL_1)
 
 `data/bases-minimal.json` contains a set of base forms and their conjugation classes
 
-# TODO
+## TODO
 
 - [X] `inflect_present()`
 - [X] `past2present()`
 - [X] `past2binyan()`
 - [X] `future2infinitive()`
+- [ ] add root="Qbs" binyan="hufal"
+- [ ] add  root="mcc" binyan="nifal"

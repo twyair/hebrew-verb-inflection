@@ -4,13 +4,16 @@ from enum import Enum, auto
 class Paradigm(Enum):
     NONE = auto()
     KFULIM = auto()
-    PE_YOD = auto()  # used only for PAAL
-    AYIN_WAW = auto()  # used only for PAAL
+    KFULIM_2 = auto()  # used only for HUFAL
     PE_ALEF = auto()  # used only for PAAL
     PAAL_1 = auto()
     PAAL_2 = auto()
     PAAL_3 = auto()
     PAAL_4 = auto()
+    PAAL_5 = auto()
+
+    def is_kfulim(self) -> bool:
+        return self in (Paradigm.KFULIM, Paradigm.KFULIM_2)
 
 
 class Binyan(Enum):

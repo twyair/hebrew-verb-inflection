@@ -589,7 +589,7 @@
     },
     {
         "verb": "qafa!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "barA!Z",
@@ -1601,7 +1601,7 @@
     },
     {
         "verb": "Gama!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "malA!x",
@@ -1717,7 +1717,7 @@
     },
     {
         "verb": "bara!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "nIqhA!l",
@@ -1793,7 +1793,7 @@
     },
     {
         "verb": "qara!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "nIgmA!d",
@@ -2605,7 +2605,7 @@
     },
     {
         "verb": "halA!x",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_2"
     },
     {
         "verb": "hUtmA!d",
@@ -3433,7 +3433,7 @@
     },
     {
         "verb": "sama!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "hI_7A_ye!l",
@@ -8541,7 +8541,7 @@
     },
     {
         "verb": "Daca!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "jU_GA!r",
@@ -11265,7 +11265,7 @@
     },
     {
         "verb": "baza!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "hU7la!Q",
@@ -13125,7 +13125,7 @@
     },
     {
         "verb": "Zava!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "jU_sA!r",
@@ -13477,10 +13477,6 @@
     },
     {
         "verb": "hIqZi!v",
-        "paradigm": "NONE"
-    },
-    {
-        "verb": "jIZ3Ze!r",
         "paradigm": "NONE"
     },
     {
@@ -15092,7 +15088,7 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "hItQAck3ne!z",
+        "verb": "hItQAckne!z",
         "paradigm": "NONE"
     },
     {
@@ -17373,7 +17369,7 @@
     },
     {
         "verb": "kala!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "hUrkA!v",
@@ -18153,7 +18149,7 @@
     },
     {
         "verb": "rafa!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "cI_7e!f",
@@ -18841,7 +18837,7 @@
     },
     {
         "verb": "maZa!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "lI_ba!H",
@@ -20957,7 +20953,7 @@
     },
     {
         "verb": "7ala!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "caxA!x",
@@ -24413,7 +24409,7 @@
     },
     {
         "verb": "janA!7",
-        "paradigm": "NONE"
+        "paradigm": "PAAL_2"
     },
     {
         "verb": "qI_be!l",
@@ -24684,7 +24680,7 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "7IlG3re!f",
+        "verb": "7IlGre!f",
         "paradigm": "NONE"
     },
     {
@@ -25660,7 +25656,7 @@
         "paradigm": "NONE"
     },
     {
-        "verb": "jIn73re!c",
+        "verb": "jIn7re!c",
         "paradigm": "NONE"
     },
     {
@@ -29221,7 +29217,7 @@
     },
     {
         "verb": "maja!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "zalA!f",
@@ -29669,7 +29665,7 @@
     },
     {
         "verb": "sava!Q",
-        "paradigm": "PAAL_1"
+        "paradigm": "PAAL_5"
     },
     {
         "verb": "cU_pA!r",

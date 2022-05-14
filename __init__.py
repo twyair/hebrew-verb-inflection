@@ -6,7 +6,7 @@ from consts import Binyan, Present, Pronoun, Paradigm
 
 CONSONANTS = tuple("QbvgGdDhwzj7ykxlmnsRpfZqrcStT")
 GRONIYOT = tuple("hjQR")
-GRONIYOT_RESH = GRONIYOT + ("r", )
+GRONIYOT_RESH = GRONIYOT + ("r",)
 PRONOUN_FUTURE_PREFIX = {
     Pronoun.ANI: "Q",
     Pronoun.ATA: "T",
@@ -50,14 +50,17 @@ PRONOUN_PAST_SUFFIX = {
 PRESENT_SUFFIX = {
     Present.FEMALE_SINGULAR: "a!H",
     Present.MALE_PLURAL: "i!m",
-    Present.FEMALE_PLURAL: "W!t"
+    Present.FEMALE_PLURAL: "W!t",
 }
+
 
 def add_dagesh_lene(c: str) -> str:
     return DAGESH_LENE.get(c, c)
 
+
 def remove_dagesh_lene(c: str) -> str:
     return DAGESH_LENE_REV.get(c, c)
+
 
 def add_dagesh_forte(c: str) -> str:
     if c in GRONIYOT_RESH:
@@ -65,24 +68,34 @@ def add_dagesh_forte(c: str) -> str:
     else:
         return "_" + add_dagesh_lene(c)
 
+
 def add_schwa(c: str, hataf: str = "á") -> str:
     assert len(c) == 1
     if c in GRONIYOT:
         return c + hataf
     return c + "3"
 
+
 def patah_gnuva(c: str) -> str:
     return "Á" if c in "Rhj" else ""
+
 
 def fixup(word: str) -> str:
     return re.sub(r"(.)\1", lambda m: m[1] + "3" + m[1], word)
 
-def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm) -> str:
+
+def inflect_future(
+    base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm
+) -> str:
     if pronoun == Pronoun.HU:
         return base
     if binyan in (Binyan.HITPAEL, Binyan.PIEL, Binyan.PUAL):
-        assert base.startswith("yI") and binyan == Binyan.HITPAEL or base.startswith(
-            "y3") and binyan != Binyan.HITPAEL
+        assert (
+            base.startswith("yI")
+            and binyan == Binyan.HITPAEL
+            or base.startswith("y3")
+            and binyan != Binyan.HITPAEL
+        )
         base = base[1:]
 
         base_at = re.sub(r"[Á]", "", base)
@@ -124,12 +137,25 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
         base_at = base.replace("Á", "")
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Paradigm.KFULIM == paradigm and base_at[-1] not in "jhQRr" and not re.search(r"(.).!\1$", re.sub("[fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base_at)):
+        elif (
+            paradigm.is_kfulim()
+            and base_at[-1] not in "jhQRr"
+            and not re.search(
+                r"(.).!\1$",
+                re.sub("[fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base_at),
+            )
+        ):
             base_at = base_at[:-1] + "_" + add_dagesh_lene(base_at[-1])
         else:
             assert base_at.endswith(CONSONANTS)
 
-        if pronoun in (Pronoun.ANI, Pronoun.ATA, Pronoun.HU, Pronoun.HI, Pronoun.ANACNU):
+        if pronoun in (
+            Pronoun.ANI,
+            Pronoun.ATA,
+            Pronoun.HU,
+            Pronoun.HI,
+            Pronoun.ANACNU,
+        ):
             return base
         if pronoun == Pronoun.AT:
             return base_at + "i" + ("!" if base.endswith("E!H") else "")
@@ -146,7 +172,9 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
                 return base.replace("e!", "A!") + "naH"
             if re.search(r"e!Q$", base):
                 return base.replace("e!", "E!") + "naH"
-            return base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            return (
+                base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            )
     elif binyan == Binyan.NIFAL:
         assert base[:2] in ("ye", "yI")
 
@@ -161,7 +189,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
         stressed_suffix_at = True
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Paradigm.KFULIM == paradigm and not re.search(r"(.).!\1", base_at):
+        elif paradigm.is_kfulim() and not re.search(r"(.).!\1", base_at):
             if base_at[-1] in "r":
                 base_at = base_at.replace("A!", "a!")
             else:
@@ -184,7 +212,9 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
                 return base[:-1] + "_naH"
             if re.search(r".!Q$", base):
                 return re.sub(".!", "E!", base) + "naH"
-            return base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            return (
+                base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            )
     elif binyan == Binyan.HUFAL:
         assert base[:2] in ("yU", "yu")
         base = PRONOUN_FUTURE_PREFIX[pronoun] + base[1:]
@@ -193,7 +223,7 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
         stressed_suffix_at = True
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Paradigm.KFULIM == paradigm and len(base_at) == 6 and base_at[-4] == "j":
+        elif paradigm.is_kfulim() and len(base_at) == 6 and base_at[-4] == "j":
             base_at = base_at[:-1] + add_dagesh_forte(base_at[-1])
             stressed_suffix_at = False
         else:
@@ -213,15 +243,17 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
                 return base[:-1] + "_naH"
             if re.search(r".!Q$", base):
                 return re.sub(".!", "E!", base) + "naH"
-            return base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            return (
+                base.replace("Á", "") + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            )
     elif binyan == Binyan.PAAL:
         base = base[1:]
 
         if pronoun == Pronoun.ANI:
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_4) and re.fullmatch(r"i.(A!.|u!.Á?)", base):
+                return "Q" + base
             if base[:2] == "oQ":
                 return "Qo" + base[2:]
-            if Paradigm.PE_YOD == paradigm:
-                return "Q" + base
             if base[0].islower():
                 return "Q" + ("e" if base[0] in "ie" else "a") + base[1:]
             if base[1] in GRONIYOT:
@@ -232,13 +264,12 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
         base_at = base.replace("Á", "")
         if base_at.endswith("E!H"):
             base_at = base_at[:-3]
-        elif Paradigm.PE_YOD == paradigm:
-            base_at = re.sub("..!", add_schwa(base_at[-4]) , base_at)
-        elif Paradigm.KFULIM == paradigm and len(base_at) == 6:
+        # FIXME
+        elif paradigm.is_kfulim() and len(base_at) == 6:
             base_at = base_at[:-1] + add_dagesh_forte(base_at[-1])
         else:
-            assert base_at.endswith(CONSONANTS)
-            if re.fullmatch(r"....!.", base_at):
+            assert base_at.endswith(CONSONANTS), (base_at, base)
+            if re.fullmatch(r"....!.", base_at) and not (paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_4) and re.fullmatch(r"i.(A!.|u!.Á?)", base[1:]) or paradigm == Paradigm.PAAL_2 and re.fullmatch(rf"e.(e!.|A![{GRONIYOT}])", base[1:])):
                 pass  # do nothing
             elif "á" in base_at:  # FIXME
                 base_at = re.sub(f".!", "", base_at.replace("á", "A"))
@@ -255,39 +286,90 @@ def inflect_future(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradi
             return base_at + "u" + ("" if "!" in base_at else "!")
         if pronoun in (Pronoun.ATEN, Pronoun.HEN):
             base = base.replace("Á", "")
-            if Paradigm.AYIN_WAW == paradigm and base.endswith("j"):
-                return re.sub(".!", "A!", base) + "naH"
             if base.endswith("E!H"):
                 return base[:-3] + "E!YnaH"
             if re.search(r".!Q$", base):
                 return (re.sub(".!", "E!", base) + "naH").replace("nn", "_n")
             if "i!" in base:
-                return re.sub("n3?n", "_n", base.replace("i!", "e!") + ("3" if base[-3] in "aiueoWY" else "") + "naH")
+                return re.sub(
+                    "n3?n",
+                    "_n",
+                    base.replace("i!", "e!")
+                    + ("3" if base[-3] in "aiueoWY" else "")
+                    + "naH",
+                )
             if "u!" in base:
-                return re.sub("n3?n", "_n", base.replace("u!", "o!") + ("3" if base[-3] in "aiueoWY" else "") + "naH")
-            return re.sub("n3?n", "_n", base + ("3" if base[-3] in "aiueoWY" else "") + "naH")
+                return re.sub(
+                    "n3?n",
+                    "_n",
+                    base.replace("u!", "o!")
+                    + ("3" if base[-3] in "aiueoWY" else "")
+                    + "naH",
+                )
+            return re.sub(
+                "n3?n", "_n", base + ("3" if base[-3] in "aiueoWY" else "") + "naH"
+            )
+    assert False, (base, binyan, pronoun)
 
-def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm) -> str:
+
+def inflect_past(
+    base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm
+) -> str:
     if pronoun == Pronoun.HU:
         return base
     base = base.replace("Á", "")
     if base.endswith("a!H"):
-        if binyan in (Binyan.NIFAL, Binyan.PUAL, Binyan.HITPAEL, Binyan.HUFAL, Binyan.HIFIL):
+        if binyan in (
+            Binyan.NIFAL,
+            Binyan.PUAL,
+            Binyan.HITPAEL,
+            Binyan.HUFAL,
+            Binyan.HIFIL,
+        ):
             base = base.replace("a!H", "e!Y")
         else:
             base = base.replace("a!H", "i!")
     if pronoun in (Pronoun.ANI, Pronoun.ATA, Pronoun.AT, Pronoun.ANACNU):
-        if binyan == Binyan.PAAL and Paradigm.KFULIM == paradigm and re.fullmatch(r"..!.", base):
+        if (
+            binyan == Binyan.PAAL
+            and paradigm.is_kfulim()
+            and re.fullmatch(r"..!.", base)
+        ):
             if base[-1] in GRONIYOT_RESH:
-                return re.sub(".!", "a" if base[-1] not in "j" else "A", base) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
-            return base.replace("!", "")[:-1] + "_" + add_dagesh_lene(base[-1]) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
-        if binyan == Binyan.NIFAL and Paradigm.KFULIM == paradigm and re.fullmatch(r"na.A!.", base):
-            return "n3" + base[2] + "A" + add_dagesh_forte(base[-1]) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+                return (
+                    re.sub(".!", "a" if base[-1] not in "j" else "A", base)
+                    + "W"
+                    + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "")
+                    + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+                )
+            return (
+                base.replace("!", "")[:-1]
+                + "_"
+                + add_dagesh_lene(base[-1])
+                + "W"
+                + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "")
+                + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            )
+        if (
+            binyan == Binyan.NIFAL
+            and paradigm.is_kfulim()
+            and re.fullmatch(r"na.A!.", base)
+        ):
+            return (
+                "n3"
+                + base[2]
+                + "A"
+                + add_dagesh_forte(base[-1])
+                + "W"
+                + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "")
+                + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            )
         if re.search(r"[aiueoAIUEOW]!?Y?$", base):
             res = base + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
         elif base.endswith("Q") and len(base) != 3 and binyan != Binyan.PAAL:
-            res = re.sub(r"[aieA]!", "e!", base) + \
-                PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            res = re.sub(r"[aieA]!", "e!", base) + PRONOUN_PAST_SUFFIX[pronoun].replace(
+                "T", "t"
+            )
         elif base.endswith("Q") and binyan == Binyan.PAAL and base[-3] in "ae":
             res = base + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
         else:
@@ -295,19 +377,32 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm
         res = res.replace("nn", "_n").replace("tT", "_T")
         return res
     if pronoun in (Pronoun.ATEM, Pronoun.ATEN):
-        if binyan == Binyan.PAAL and Paradigm.KFULIM == paradigm and re.fullmatch(r"..!.", base):
+        if (
+            binyan == Binyan.PAAL
+            and paradigm.is_kfulim()
+            and re.fullmatch(r"..!.", base)
+        ):
             if base[-1] in GRONIYOT_RESH:
-                return re.sub(".!", "a" if base[-1] not in "j" else "A", base) + "W" + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
-            return base.replace("!", "")[:-1] + add_dagesh_forte(base[-1]) + "W" + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+                return (
+                    re.sub(".!", "a" if base[-1] not in "j" else "A", base)
+                    + "W"
+                    + ("!" if "!" not in PRONOUN_PAST_SUFFIX[pronoun] else "")
+                    + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+                )
+            return (
+                base.replace("!", "")[:-1]
+                + add_dagesh_forte(base[-1])
+                + "W"
+                + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            )
         if re.search(r"[aiueoAIUEOW]!?Y?$", base):
-            res = base.replace("!", "") + \
-                PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            res = base.replace("!", "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
         elif base.endswith("Q") and len(base) != 3 and binyan != Binyan.PAAL:
-            res = re.sub(r"[aieA]!", "e", base) + \
-                PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            res = re.sub(r"[aieA]!", "e", base) + PRONOUN_PAST_SUFFIX[pronoun].replace(
+                "T", "t"
+            )
         elif base.endswith("Q") and binyan == Binyan.PAAL and base[-3] in "ae":
-            res = base.replace("!", "") + \
-                PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
+            res = base.replace("!", "") + PRONOUN_PAST_SUFFIX[pronoun].replace("T", "t")
         else:
             res = re.sub(r"[aieA]!", "A", base) + PRONOUN_PAST_SUFFIX[pronoun]
         if binyan == Binyan.PAAL and len(res) > 3 + len(PRONOUN_PAST_SUFFIX[pronoun]):
@@ -328,8 +423,19 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm
                 return re.sub(r"á(?=.$)", "A", res) + "ta!H"
             return res[:-1] + add_schwa(res[-1]) + "ta!H"
         return re.sub(r"[aiueoAIUEOW]!?Y?$", "", base) + PRONOUN_PAST_SUFFIX[pronoun]
-    if Paradigm.KFULIM == paradigm and binyan in (Binyan.PAAL, Binyan.NIFAL, Binyan.HIFIL) and not (add_dagesh_lene(base[-1]) == add_dagesh_lene(base[-4]) and re.search(r"..!.$", base)):#not re.search(r"(.).!\1$", re.sub("(.).![fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base)):
-        return base[:-1] + add_dagesh_forte(base[-1]) + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
+    if (
+        paradigm.is_kfulim()
+        and binyan in (Binyan.PAAL, Binyan.NIFAL, Binyan.HIFIL)
+        and not (
+            add_dagesh_lene(base[-1]) == add_dagesh_lene(base[-4])
+            and re.search(r"..!.$", base)
+        )
+    ):  # not re.search(r"(.).!\1$", re.sub("(.).![fvxdgt]$", lambda m: add_dagesh_lene(m[0]), base)):
+        return (
+            base[:-1]
+            + add_dagesh_forte(base[-1])
+            + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
+        )
     if binyan == Binyan.HIFIL:
         return base + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
     else:
@@ -341,40 +447,78 @@ def inflect_past(base: str, binyan: Binyan, pronoun: Pronoun, paradigm: Paradigm
             return re.sub(r"á(.).!", r"A\1", base) + PRONOUN_PAST_SUFFIX[pronoun]
         if binyan == Binyan.NIFAL and re.search("W!.$", base):
             return base + PRONOUN_PAST_SUFFIX[pronoun].replace("!", "")
-        return re.sub(r".[Aae]!", add_schwa(base[-4]), base) + PRONOUN_PAST_SUFFIX[pronoun]
+        return (
+            re.sub(r".[Aae]!", add_schwa(base[-4]), base) + PRONOUN_PAST_SUFFIX[pronoun]
+        )
 
-def inflect_present(base: str, binyan: Binyan, param: Present, paradigm: Paradigm) -> str:
+
+def inflect_present(
+    base: str, binyan: Binyan, param: Present, paradigm: Paradigm
+) -> str:
     if param == Present.MALE_SINGULAR:
         return base
-    if binyan in (Binyan.HITPAEL, Binyan.PIEL) or binyan == Binyan.PAAL and re.fullmatch(".W.e!.Á?|.[aW].E!H", base):
+    if (
+        binyan in (Binyan.HITPAEL, Binyan.PIEL)
+        or binyan == Binyan.PAAL
+        and re.fullmatch(".W.e!.Á?|.[aW].E!H", base)
+    ):
         if base.endswith("E!H"):
             return base.replace("E!H", PRESENT_SUFFIX[param])
         if param == Present.FEMALE_SINGULAR:
-            if base.endswith("e!Q") and binyan in (Binyan.HITPAEL, Binyan.PIEL):
+            if base.endswith("e!Q") and (
+                paradigm == Paradigm.PAAL_5 or binyan in (Binyan.HITPAEL, Binyan.PIEL)
+            ):
                 return base + "t"
             if re.search("e!.Á?$", base):
-                return re.sub(r"e!(.)Á?$", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
+                return re.sub(
+                    r"e!(.)Á?$",
+                    lambda m: ("A!" + m[1] + "At")
+                    if m[1] in GRONIYOT
+                    else ("E!" + m[1] + "Et"),
+                    base,
+                )
         if param in (Present.MALE_PLURAL, Present.FEMALE_PLURAL):
             if re.search("e!.Á?$", base):
                 if re.search(r"á.e!.Á?$", base):
-                    return re.sub(r"á(.)e!", r"A\1", base.replace("Á", "")) + PRESENT_SUFFIX[param]
-                return re.sub(r"(.)e!(.)Á?$", lambda m: add_schwa(m[1]) + m[2], base) + PRESENT_SUFFIX[param]
+                    return (
+                        re.sub(r"á(.)e!", r"A\1", base.replace("Á", ""))
+                        + PRESENT_SUFFIX[param]
+                    )
+                return (
+                    re.sub(r"(.)e!(.)Á?$", lambda m: add_schwa(m[1]) + m[2], base)
+                    + PRESENT_SUFFIX[param]
+                )
     if binyan in (Binyan.PUAL, Binyan.HUFAL, Binyan.NIFAL):
         if base.endswith("E!H"):
-            if binyan in (Binyan.NIFAL, Binyan.HUFAL) and param == Present.FEMALE_SINGULAR:
+            if (
+                binyan in (Binyan.NIFAL, Binyan.HUFAL)
+                and param == Present.FEMALE_SINGULAR
+            ):
                 return base.replace("E!H", "e!Yt")
             return base.replace("E!H", PRESENT_SUFFIX[param])
         if param == Present.FEMALE_SINGULAR:
             if base.endswith("a!Q"):
                 return base[:-3] + "e!Qt"
             if re.search("a!.$", base):
-                return re.sub(r"a!(.)", lambda m: ("A!" + m[1] + "At") if m[1] in GRONIYOT else ("E!" + m[1] + "Et"), base)
+                return re.sub(
+                    r"a!(.)",
+                    lambda m: ("A!" + m[1] + "At")
+                    if m[1] in GRONIYOT
+                    else ("E!" + m[1] + "Et"),
+                    base,
+                )
         if param in (Present.MALE_PLURAL, Present.FEMALE_PLURAL):
+            if paradigm == Paradigm.KFULIM_2:
+                return (
+                    base[:-3] + "A" + add_dagesh_forte(base[-1]) + PRESENT_SUFFIX[param]
+                )
             if re.search("a!.$", base):
                 return base.replace("a!", "a") + PRESENT_SUFFIX[param]
     if binyan == Binyan.HIFIL:
         if re.fullmatch("me.e![^Rr]Á?", base):
-            return "m3" + base[2] + "I" + add_dagesh_forte(base[5]) + PRESENT_SUFFIX[param]
+            return (
+                "m3" + base[2] + "I" + add_dagesh_forte(base[5]) + PRESENT_SUFFIX[param]
+            )
         if re.match("me[^Y]", base):
             base = "m3" + base[2:]
         if re.search("[" + "".join(CONSONANTS) + "]Á?$", base):
@@ -391,24 +535,81 @@ def inflect_present(base: str, binyan: Binyan, param: Present, paradigm: Paradig
                 base = base[:-2] + add_dagesh_forte(base[-1])
             return base + PRESENT_SUFFIX[param]
         if re.fullmatch(".a.e!.Á?", base):
-            return add_schwa(base[0]) + base[2:].replace("!", "").replace("Á", "") + PRESENT_SUFFIX[param]
+            return (
+                add_schwa(base[0])
+                + base[2:].replace("!", "").replace("Á", "")
+                + PRESENT_SUFFIX[param]
+            )
+
+    if base in ("nejA!n", "nejA!m"):
+        return ""  # FIXME
+    # assert base == "me!t", (base, binyan, param, paradigm)
+    return base.replace("!", "") + PRESENT_SUFFIX[param]
+
 
 def future2infinitive(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
     assert binyan not in (Binyan.PUAL, Binyan.HUFAL)
+
+    # exceptions:
+    if base == "yoQmA!r":
+        return "lWmA!r"
+    
+    if paradigm == Paradigm.PE_ALEF:
+        return "lEQé" + re.sub(
+            "[^iu]!(.)Á?$", lambda m: "o!" + m[1] + patah_gnuva(m[1]), base[3:]
+        )
+
+    # exceptions:
+    if base == "yehanE!H":
+        assert binyan == Binyan.NIFAL and paradigm == Paradigm.NONE
+        return "lehanW!t"
+
     if binyan in (Binyan.HIFIL, Binyan.NIFAL, Binyan.HITPAEL):
         return "l3h" + base[1:].replace("E!H", "W!t")
     if binyan == Binyan.PIEL:
         return "l" + base[1:].replace("E!H", "W!t")
     if binyan == Binyan.PAAL:
+        # exceptions:
+
+        if base == "yIckA!v":
+            return "lIckA!v"
+
+        # if base.startswith(("yEjé", "yERé", "yEhé")) and paradigm in (Paradigm.PAAL_4, Paradigm.PAAL_1):
+        if re.match(r"yE[hjR]é", base) and paradigm in (Paradigm.PAAL_4, Paradigm.PAAL_1):
+            base = "yA" + base[2] + "á" + base[4:]
+        elif base.startswith("yI_") and paradigm in (
+            Paradigm.PAAL_1,
+            Paradigm.PAAL_5,
+            Paradigm.PAAL_2,
+        ):
+            # exception
+            if base == "yI_po!l":
+                return "lI_po!l"
+            base = "lIn" + base[3:]
         if base.endswith("E!H"):
             return "l" + base[1:].replace("E!H", "W!t")
-        return "l" + re.sub("[^iu]!(.)Á?$", lambda m: "o!" + m[1] + patah_gnuva(m[1]), base[1:])
+        if paradigm == Paradigm.PAAL_2 and re.fullmatch(rf"e.(e!.|A![{GRONIYOT}])", base[1:]):
+            x = base[-1]
+            v = "A" if x in GRONIYOT else "E"
+            return "la" + base[2] + v + "!" + x + v + "t"
+        return "l" + re.sub(
+            "[^iu]!(.)Á?$", lambda m: "o!" + m[1] + patah_gnuva(m[1]), base[1:]
+        )
+
 
 def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
+    # exception
+    if base == "me!t":
+        return "yamu!t"
+
     if binyan == Binyan.HITPAEL:
         return "y" + base[1:].replace("a!H", "E!H")
     if binyan in (Binyan.PIEL, Binyan.PUAL):
-        base = "y3" + remove_dagesh_lene(base[0]) + re.sub("^[Ie]", "a" if re.search("e[rQ].!", base) else "A", base[1:])
+        base = (
+            "y3"
+            + remove_dagesh_lene(base[0])
+            + re.sub("^[Ie]", "a" if re.search("e[rQ].!", base) else "A", base[1:])
+        )
         return base.replace("a!H", "E!H")
     if binyan == Binyan.HIFIL:
         base = base.replace("a!H", "E!H")
@@ -425,17 +626,37 @@ def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
     if binyan == Binyan.HUFAL:
         return "y" + base[1:].replace("a!H", "E!H")
     if binyan == Binyan.NIFAL:
-        if (m := re.fullmatch(r"n(?:I_?|W)(.)A!(.)", base)):
-            return "yI_" + ("w" if base[1] == "W" else "n") + "a" + remove_dagesh_lene(m[1]) + ("A" if m[2] in "Rjh" else "e") + "!" + m[2]
-        if (m := re.fullmatch(r"n(?:I_?|W)(.)a!H", base)):
-            return "yI_" + ("w" if base[1] == "W" else "n") + "a" + remove_dagesh_lene(m[1]) + "E!H"
-        if (m := re.fullmatch(r"n(?:I_?|W)(.)a!Q", base)):
-            return "yI_" + ("w" if base[1] == "W" else "n") + "a" + remove_dagesh_lene(m[1]) + "e!Q"
-        if (m := re.fullmatch(r"na(.)A!.", base)):
+        if m := re.fullmatch(r"n(?:I_?|W)(.)A!(.)", base):
+            return (
+                "yI_"
+                + ("w" if base[1] == "W" else "n")
+                + "a"
+                + remove_dagesh_lene(m[1])
+                + ("A" if m[2] in "Rjh" else "e")
+                + "!"
+                + m[2]
+            )
+        if m := re.fullmatch(r"n(?:I_?|W)(.)a!H", base):
+            return (
+                "yI_"
+                + ("w" if base[1] == "W" else "n")
+                + "a"
+                + remove_dagesh_lene(m[1])
+                + "E!H"
+            )
+        if m := re.fullmatch(r"n(?:I_?|W)(.)a!Q", base):
+            return (
+                "yI_"
+                + ("w" if base[1] == "W" else "n")
+                + "a"
+                + remove_dagesh_lene(m[1])
+                + "e!Q"
+            )
+        if m := re.fullmatch(r"na(.)A!.", base):
             return "yI_" + add_dagesh_lene(m[1]) + base[3:]
-        if (m := re.fullmatch(r"ne([QRhjr])A!(.)", base)):
+        if m := re.fullmatch(r"ne([QRhjr])A!(.)", base):
             return "ye" + m[1] + "A!" + m[2]
-        if (m := re.fullmatch(r"na(.)W!.", base)):
+        if m := re.fullmatch(r"na(.)W!.", base):
             return "yI_" + add_dagesh_lene(m[1]) + base[3:]
         base = base[2:].replace("!", "")
         # FIXME
@@ -443,30 +664,71 @@ def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
             return None
         if re.match("^.é", base):
             base = re.sub(r"(?<=^.)é", "", base)
-        return "y" + ("e" if base[0] in GRONIYOT_RESH else "I_") + add_dagesh_lene(base[0]) + "a" + remove_dagesh_lene(base[1]) + ("E!H" if base.endswith("aH")  else ("A" if base[3] in "hjR" else "e") + "!" + base[3])
+        return (
+            "y"
+            + ("e" if base[0] in GRONIYOT_RESH else "I_")
+            + add_dagesh_lene(base[0])
+            + "a"
+            + remove_dagesh_lene(base[1])
+            + (
+                "E!H"
+                if base.endswith("aH")
+                else ("A" if base[3] in "hjR" else "e") + "!" + base[3]
+            )
+        )
     if binyan == Binyan.PAAL:
-        if base == 'halA!x':
+        # exception:
+        if base == "halA!x":
             return "yele!x"
-        if (m := re.fullmatch(r"(.)a(.)A!(.)", base)):
+        if m := re.fullmatch(rf"(.)a(.)[Aae]!([{CONSONANTS}])", base):
+            vowel = "o"
+            if base.endswith("a!Q"):
+                vowel = "a"
             if Paradigm.PE_ALEF == paradigm:
                 return "yoQ" + m[2] + "A!" + m[3]
             if m[1] in GRONIYOT and paradigm in (Paradigm.PAAL_3, Paradigm.PAAL_4):
                 return "yE" + m[1] + "é" + m[2] + "A!" + m[3]
-            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_4):
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_5, Paradigm.PAAL_4):
                 if m[1] in GRONIYOT:
-                    return "yE" + m[1] + "é" + m[2] + "o!" + m[3]
+                    return "yE" + m[1] + "é" + m[2] + vowel + "!" + m[3]
                 if m[1] == "n":
-                    return "yI" + (add_dagesh_forte(m[2]) if m[2] not in GRONIYOT_RESH else "n" + m[2]) + ("A" if m[2] in "hjR" or m[3] in "QRjh" else "o") + "!" + m[3]
+                    return (
+                        "yI"
+                        + (
+                            add_dagesh_forte(m[2])
+                            if m[2] not in GRONIYOT_RESH
+                            else "n" + m[2]
+                        )
+                        + ("A" if m[2] in "hjR" or m[3] in "QRjh" else "o")
+                        + "!"
+                        + m[3]
+                    )
                 if m[1] == "y":
                     return "yi" + m[2] + "A!" + m[3]
                 if m[2] == m[3]:
-                    return "ya" + remove_dagesh_lene(m[1]) + "o!" + m[3]
-                return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "A!" + m[3]
+                    return "ya" + remove_dagesh_lene(m[1]) + vowel + "!" + m[3]
+                return (
+                    "yI"
+                    + remove_dagesh_lene(m[1])
+                    + add_dagesh_lene(m[2])
+                    + ("A" if m[3] != "Q" else "a")
+                    + "!"
+                    + m[3]
+                )
             if Paradigm.PAAL_2 == paradigm:
                 if m[1] in GRONIYOT:
                     return "yA" + m[1] + add_dagesh_lene(m[2]) + "o!" + m[3]
                 if m[1] == "n":
-                    return "yI" + (add_dagesh_forte(m[2]) if m[2] not in GRONIYOT_RESH else "n" + m[2]) + "A!" + m[3]
+                    return (
+                        "yI"
+                        + (
+                            add_dagesh_forte(m[2])
+                            if m[2] not in GRONIYOT_RESH
+                            else "n" + m[2]
+                        )
+                        + "A!"
+                        + m[3]
+                    )
                 if m[1] == "y":
                     return "ye" + m[2] + ("A!" if m[3] in "Rjh" else "e!") + m[3]
                 # if m[1] in "Qh":
@@ -474,24 +736,62 @@ def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
             if m[1] in GRONIYOT:
                 return "yA" + m[1] + "á" + m[2] + "o!" + m[3]
             if m[2] in GRONIYOT or m[3] in GRONIYOT:
-                return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "A!" + m[3]
+                return (
+                    "yI"
+                    + remove_dagesh_lene(m[1])
+                    + add_dagesh_lene(m[2])
+                    + "A!"
+                    + m[3]
+                )
             return "yI" + remove_dagesh_lene(m[1]) + add_dagesh_lene(m[2]) + "o!" + m[3]
         if re.fullmatch(r".a!.", base):
-            if Paradigm.PAAL_1 == paradigm:
-                return "ya" + remove_dagesh_lene(base[0]) + "i!" + base[-1] + patah_gnuva(base[-1])
-            return "ya" + remove_dagesh_lene(base[0]) + "u!" + base[-1] + patah_gnuva(base[-1])
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_5):
+                return (
+                    "ya"
+                    + remove_dagesh_lene(base[0])
+                    + "i!"
+                    + base[-1]
+                    + patah_gnuva(base[-1])
+                )
+            return (
+                "ya"
+                + remove_dagesh_lene(base[0])
+                + "u!"
+                + base[-1]
+                + patah_gnuva(base[-1])
+            )
         if re.fullmatch(r".A!.", base):
-            if Paradigm.PAAL_1 == paradigm:
-                return "ya" + remove_dagesh_lene(base[0]) + "o!" + base[-1] + patah_gnuva(base[-1])
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_5):
+                return (
+                    "ya"
+                    + remove_dagesh_lene(base[0])
+                    + "o!"
+                    + base[-1]
+                    + patah_gnuva(base[-1])
+                )
             if Paradigm.PAAL_2 == paradigm:
-                return "yI" + add_dagesh_forte(base[0]) + "o!" + base[-1] + patah_gnuva(base[-1])
+                return (
+                    "yI"
+                    + add_dagesh_forte(base[0])
+                    + "o!"
+                    + base[-1]
+                    + patah_gnuva(base[-1])
+                )
             return "ye" + remove_dagesh_lene(base[0]) + "A!" + base[-1]
         if re.fullmatch(r".a.a!H", base):
-            if Paradigm.PAAL_1 == paradigm:
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_5):
                 if base[0] in GRONIYOT:
                     return "yE" + base[0] + "é" + base[2] + "E!H"
                 if base[0] == "n":
-                    return "yI" + (add_dagesh_forte(base[2]) if base[2] not in GRONIYOT_RESH else "n" + base[2]) + "E!H"
+                    return (
+                        "yI"
+                        + (
+                            add_dagesh_forte(base[2])
+                            if base[2] not in GRONIYOT_RESH
+                            else "n" + base[2]
+                        )
+                        + "E!H"
+                    )
                 if base[0] == "y":
                     return "yi" + base[2] + "E!H"
                 assert False
@@ -502,12 +802,17 @@ def past2future(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
                 return "yA" + base[0] + "á" + base[2] + "E!H"
             return "yI" + remove_dagesh_lene(base[0]) + add_dagesh_lene(base[2]) + "E!H"
 
+
 def past2present(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]:
     if binyan == Binyan.HITPAEL:
         return "m" + base[1:].replace("a!H", "E!H")
     if binyan in (Binyan.PIEL, Binyan.PUAL):
         base = re.sub("A!", "a!", base)
-        base = "m3" + remove_dagesh_lene(base[0]) + re.sub("^[Ie]", "a" if re.search("e[rQ].!", base) else "A", base[1:])
+        base = (
+            "m3"
+            + remove_dagesh_lene(base[0])
+            + re.sub("^[Ie]", "a" if re.search("e[rQ].!", base) else "A", base[1:])
+        )
         return base.replace("a!H", "E!H")
     if binyan == Binyan.HIFIL:
         base = base.replace("a!H", "E!H")
@@ -541,39 +846,66 @@ def past2present(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[str]
         if re.fullmatch(r".[aA]!.", base):
             return base
         if re.fullmatch(r".a.a!Q", base):
-            if paradigm == Paradigm.PAAL_1:
+            if paradigm in (Paradigm.PAAL_1, Paradigm.PAAL_5):
                 return base[0] + "W" + base[2] + "e!Q"
             return base[0] + "W" + base[2] + "a!Q"
         if re.fullmatch(r".a.e!Q", base):
             return base
         return base
 
+
 def past2binyan(verb: str, paradigm: Paradigm) -> Optional[Binyan]:
-    if re.fullmatch("n(a.|ej)A!.", verb) and paradigm == Paradigm.KFULIM:
+    if re.fullmatch("n(a.|ej)A!.", verb) and paradigm.is_kfulim():
         return Binyan.NIFAL
     if re.fullmatch(".a.(A!.|a!H|a!Q)", verb):
         return Binyan.PAAL
     if re.fullmatch(".[aA]!.", verb):
         return Binyan.PAAL
-    if paradigm in {Paradigm.PE_YOD, Paradigm.AYIN_WAW, Paradigm.PAAL_1, Paradigm.PAAL_2, Paradigm.PAAL_3, Paradigm.PAAL_4}:
+    if paradigm in {
+        Paradigm.PAAL_1,
+        Paradigm.PAAL_2,
+        Paradigm.PAAL_3,
+        Paradigm.PAAL_4,
+        Paradigm.PAAL_5,
+    }:
         return Binyan.PAAL
     if re.fullmatch("hI..(i!.Á?|a!H)", verb):  # must be before PIEL and HITPAEL
         return Binyan.HIFIL
     if re.fullmatch("h(eY?.|E[rjhQR]é?.|W.)(i!.Á?|a!H)|he.e!.Á?", verb):
         return Binyan.HIFIL
-    if re.match("hI(t.|[csS]T|Z7|zD)", verb) or re.fullmatch("hI_[7TD](A(.á?.|[rhjRQ])|a[rQ])(e!.Á?|a!H|a!Q)", verb):
+    if re.match("hI(t.|[csS]T|Z7|zD)", verb) or re.fullmatch(
+        "hI_[7TD](A(.á?.|[rhjRQ])|a[rQ])(e!.Á?|a!H|a!Q)", verb
+    ):
         return Binyan.HITPAEL
-    if re.fullmatch("nI..(A!.|a!Q)", verb) or re.fullmatch("n(I.|E[jRhQ]é?).a!H", verb) or re.fullmatch("nE[jRhQ]é?.(A!.|a!Q)", verb) or re.fullmatch("nW.(A!.|a!Q|a!H)", verb) or re.fullmatch("nI[rjhRQ]A!.", verb) or re.fullmatch("nA[Rjh]á.a!H", verb):
+    if (
+        re.fullmatch("nI..(A!.|a!Q)", verb)
+        or re.fullmatch("n(I.|E[jRhQ]é?).a!H", verb)
+        or re.fullmatch("nE[jRhQ]é?.(A!.|a!Q)", verb)
+        or re.fullmatch("nW.(A!.|a!Q|a!H)", verb)
+        or re.fullmatch("nI[rjhRQ]A!.", verb)
+        or re.fullmatch("nA[Rjh]á.a!H", verb)
+    ):
         return Binyan.NIFAL
-    if re.fullmatch(".(I.á?.|I..3.|[Ie][jRQhr])(e!.Á?|a!H)", verb) or re.fullmatch(r".W(.)e!.Á?", verb):
+    if (
+        re.fullmatch(".(I.á?.|I..3.|[Ie][jRQhr])(e!.Á?|a!H)", verb)
+        or re.fullmatch(r".W(.)e!.Á?", verb)
+        or re.fullmatch(rf".I[{CONSONANTS}]{{3,}}e!.Á?", verb)
+    ):
         return Binyan.PIEL
     if re.fullmatch("h(U.|u).(A!.|a!H|a!Q)", verb):  # must be before PUAL
         return Binyan.HUFAL
-    if re.fullmatch(".(U.á?.|[Uo][jRQhr])(A!.|a!H|a!Q)", verb) or re.fullmatch(r".W(.)A!\1", verb):
+    if (
+        re.fullmatch(".(U.á?.|[Uo][jRQhr])(A!.|a!H|a!Q)", verb)
+        or re.fullmatch(r".W(.)A!\1", verb)
+        or re.fullmatch(rf".U[{CONSONANTS}]{{3,}}A!.", verb)
+    ):
         return Binyan.PUAL
     return None
 
-def __inflect(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[dict[str, str]]:
+
+def __inflect(
+    base: str, binyan: Binyan, paradigm: Paradigm
+) -> Optional[dict[str, str]]:
     res = {}
     future_base = past2future(base, binyan, paradigm)
     if future_base is None:
@@ -582,14 +914,21 @@ def __inflect(base: str, binyan: Binyan, paradigm: Paradigm) -> Optional[dict[st
     if present_base is None:
         return None
     for pronoun in Pronoun:
-        res["past_" + pronoun.name] = fixup(inflect_past(base, binyan, pronoun, paradigm))
+        res["past_" + pronoun.name] = fixup(
+            inflect_past(base, binyan, pronoun, paradigm)
+        )
     for pronoun in Pronoun:
-        res["future_" + pronoun.name] = fixup(inflect_future(future_base, binyan, pronoun, paradigm))
+        res["future_" + pronoun.name] = fixup(
+            inflect_future(future_base, binyan, pronoun, paradigm)
+        )
     for param in Present:
-        res["present_" + param.name] = fixup(inflect_present(present_base, binyan, param, paradigm) or "")  # FIXME
+        res["present_" + param.name] = fixup(
+            inflect_present(present_base, binyan, param, paradigm)
+        )
     if binyan not in (Binyan.PUAL, Binyan.HUFAL):
         res["shem_poal"] = fixup(future2infinitive(future_base, binyan, paradigm) or "")
     return res
+
 
 def inflect(verb: str, paradigm: Paradigm) -> Optional[dict[str, str]]:
     binyan = past2binyan(verb, paradigm)

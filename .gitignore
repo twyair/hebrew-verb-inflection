@@ -2,3 +2,5 @@ paradigm.py
 main.py
 __pycache__
 temp
+verbs*.json
+expected.json
